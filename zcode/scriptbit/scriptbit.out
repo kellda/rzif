@@ -1,0 +1,11 @@
+Test for the transcription bit
+
+AAAABBBB
+
+Above should appear 'AAAABBBB'.
+
+Now trying again, but without the safety of input requests.
+
+AAAABBBB
+
+Above should appear 'AAAABBBB'.

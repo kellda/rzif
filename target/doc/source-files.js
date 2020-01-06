@@ -1,0 +1,3 @@
+var N = null;var sourcesIndex = {};
+sourcesIndex["rzif"] = {"name":"","dirs":[{"name":"doc","files":["mod.rs"]},{"name":"fund","dirs":[{"name":"text","files":["decode.rs","encode.rs","mod.rs"]}],"files":["alu.rs","instr.rs","mem.rs","rout.rs","state.rs"]},{"name":"io","files":["input.rs","out.rs","screen.rs","sound.rs"]},{"name":"other","dirs":[{"name":"quetzal","files":["mod.rs","restore.rs","save.rs"]}],"files":["err.rs","interface.rs","machine.rs"]},{"name":"tables","dirs":[{"name":"obj","files":["attr.rs","mod.rs","prop.rs","tree.rs"]}],"files":["dict.rs","header.rs","opcode.rs"]}],"files":["lib.rs"]};
+createSourceSidebar();

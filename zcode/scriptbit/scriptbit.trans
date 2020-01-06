@@ -1,0 +1,9 @@
+BBBB
+
+Above should appear 'AAAABBBB'.
+
+Now trying again, but without the safety of input requests.
+
+BBBB
+
+Above should appear 'AAAABBBB'.

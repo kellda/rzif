@@ -1,0 +1,273 @@
+
+TerpEtude: A Z-machine Interpreter Exerciser
+By Andrew Plotkin (erkyrath@netcom.com)
+Release 2 / built with Inform v6.31
+Tests compliance with Z-Machine Standards Document 0.99.
+
+NOTE: This program does not test everything in the Z-Spec. Passing all the tests in this program does NOT guarantee that your interpreter is Z-Spec-compliant.
+
+For that matter, this program may have mistakes in it. I don't think it does, but you should not assume it is the Fount of All Z-Machineness. If you find something strange, check the Z-Spec, check existing interpreters, check Infocom's interpreters, and then send me mail if you're still confused.
+
+Options: (hit Enter by itself to display this menu)
+  . (period): Exit TerpEtude
+  1: Version
+  2: Recent changes to TerpEtude
+  3: Header flags analysis
+  4: Styled text
+  5: Colored text
+  6: Multiplication, division, remainder
+  7: Accented character output
+  8: Single-key input
+  9: Full-line input
+  10: Timed single-key input
+  11: Timed full-line input
+  12: Pre-loading of input line
+  13: Undo capability
+  14: Printing before quitting
+
+> 
+Your interpreter claims to follow revision 1.1 of the Z-Spec.
+
+Interpreter claims that colored text IS available.
+Interpreter claims that emphasized (bold) text IS available.
+Interpreter claims that italic (or underlined) text IS available.
+Interpreter claims that fixed-width text IS available.
+Interpreter claims that sound effects ARE NOT available.
+Interpreter claims that timed input IS NOT available.
+
+Interpreter claims that "undo" IS available.
+
+> 
+This tests signed multiplication, division, and modulo operations. All these operations are supposed to be signed. (The Z-Spec 0.2 erroneously says they are unsigned; this is corrected in 0.99.)
+
+I am assuming the convention that division always rounds towards zero (not towards negative infinity), and (A % B) always has the same sign as A. These conventions seem to be common among existing C/C++ compilers. The Infocom interpreters also follow these conventions. (But they are not guaranteed by the C and C++ standards. Those only require that (A/B)*B + (A%B) == A, for all A and all nonzero B.)
+
+13 * 5 = 65 (ok)
+13 * -5 = -65 (ok)
+-13 * 5 = -65 (ok)
+-13 * -5 = 65 (ok)
+13 / 5 = 2 (ok)
+13 / -5 = -2 (ok)
+-13 / 5 = -2 (ok)
+-13 / -5 = 2 (ok)
+13 % 5 = 3 (ok)
+13 % -5 = 3 (ok)
+-13 % 5 = -3 (ok)
+-13 % -5 = -3 (ok)
+
+This aspect of your interpreter appears to behave according to spec.
+
+> 
+This displays all the accented characters (encoding values 155 to 223). You will have to inspect your interpreter's display to make sure they appear correctly.
+
+For the record, an umlaut is two dots; an acute accent is the one that slants up to the right; a grave accent is the one that slants down to the right; a circumflex is a pointy hat; a tilde is a squiggly hat; a ring is a ring; a cedilla is the little hook that hangs down below the C. Thorn looks like a capital D whose vertical bar extends both up and down, and Eth looks like a D with a little cross-stroke.
+
+NOTE: Inform 6.11 contradicts the Z-Spec 0.99 document, on the subject of the European angle-quotes (the ones that look like '>>' and '<<'). The Z-Spec says that the character '>>' is code 162, and '<<' is 163. However, Inform 6.11 (following the Z-Spec 0.2) compiles '@>>' as 163, and '@<<' as 162. The concensus is that the Z-Spec 0.2 and Inform 6.11 are wrong, and Z-Spec 0.99 and later are correct.
+
+a-umlaut:ä   o-umlaut:ö   u-umlaut:ü   A-umlaut:Ä
+O-umlaut:Ö   U-umlaut:Ü   sz-ligature:ß   >>-quotes:»
+<<-quotes:«   e-umlaut:ë   i-umlaut:ï   y-umlaut:ÿ
+E-umlaut:Ë   I-umlaut:Ï   a-acute:á   e-acute:é
+i-acute:í   o-acute:ó   u-acute:ú   y-acute:ý
+A-acute:Á   E-acute:É   I-acute:Í   O-acute:Ó
+U-acute:Ú   Y-acute:Ý   a-grave:à   e-grave:è
+i-grave:ì   o-grave:ò   u-grave:ù   A-grave:À
+E-grave:È   I-grave:Ì   O-grave:Ò   U-grave:Ù
+a-circumflex:â   e-circumflex:ê   i-circumflex:î   o-circumflex:ô
+u-circumflex:û   A-circumflex:Â   E-circumflex:Ê   I-circumflex:Î
+O-circumflex:Ô   U-circumflex:Û   a-ring:å   A-ring:Å
+o-slash:ø   O-slash:Ø   a-tilde:ã   n-tilde:ñ
+o-tilde:õ   A-tilde:Ã   N-tilde:Ñ   O-tilde:Õ
+ae-ligature:æ   AE-ligature:Æ   c-cedilla:ç   C-cedilla:Ç
+thorn:þ   eth:ð   Thorn:Þ   Eth:Ð
+pound-symbol:£   oe-ligature:œ   OE-ligature:Œ   inverse-!:¡
+inverse-?:¿   
+
+Type a digit (0..7) to repeat this list in a different text style, or "." to end this test.
+Options: 0: normal; 1: bold; 2: italic; 3: bold italic; 4: fixed-width; 5: fixed bold; 6: fixed italic; 7: fixed bold italic.
+
+Accents> 
+
+> 
+This tests input of accented (actually, all) characters. Type characters; you will see what characters your interpreter thought you typed. Hit "." to return to the main menu.
+
+AccentedInput> 
+code=155: a-umlaut:ä
+AccentedInput> 
+code=156: o-umlaut:ö
+AccentedInput> 
+code=157: u-umlaut:ü
+AccentedInput> 
+code=158: A-umlaut:Ä
+AccentedInput> 
+code=159: O-umlaut:Ö
+AccentedInput> 
+code=160: U-umlaut:Ü
+AccentedInput> 
+code=161: sz-ligature:ß
+AccentedInput> 
+code=162: >>-quotes:»
+AccentedInput> 
+code=163: <<-quotes:«
+AccentedInput> 
+code=164: e-umlaut:ë
+AccentedInput> 
+code=165: i-umlaut:ï
+AccentedInput> 
+code=166: y-umlaut:ÿ
+AccentedInput> 
+code=167: E-umlaut:Ë
+AccentedInput> 
+code=168: I-umlaut:Ï
+AccentedInput> 
+code=169: a-acute:á
+AccentedInput> 
+code=170: e-acute:é
+AccentedInput> 
+code=171: i-acute:í
+AccentedInput> 
+code=172: o-acute:ó
+AccentedInput> 
+code=173: u-acute:ú
+AccentedInput> 
+code=174: y-acute:ý
+AccentedInput> 
+code=175: A-acute:Á
+AccentedInput> 
+code=176: E-acute:É
+AccentedInput> 
+code=177: I-acute:Í
+AccentedInput> 
+code=178: O-acute:Ó
+AccentedInput> 
+code=179: U-acute:Ú
+AccentedInput> 
+code=180: Y-acute:Ý
+AccentedInput> 
+code=181: a-grave:à
+AccentedInput> 
+code=182: e-grave:è
+AccentedInput> 
+code=183: i-grave:ì
+AccentedInput> 
+code=184: o-grave:ò
+AccentedInput> 
+code=185: u-grave:ù
+AccentedInput> 
+code=186: A-grave:À
+AccentedInput> 
+code=187: E-grave:È
+AccentedInput> 
+code=188: I-grave:Ì
+AccentedInput> 
+code=189: O-grave:Ò
+AccentedInput> 
+code=190: U-grave:Ù
+AccentedInput> 
+code=191: a-circumflex:â
+AccentedInput> 
+code=192: e-circumflex:ê
+AccentedInput> 
+code=193: i-circumflex:î
+AccentedInput> 
+code=194: o-circumflex:ô
+AccentedInput> 
+code=195: u-circumflex:û
+AccentedInput> 
+code=196: A-circumflex:Â
+AccentedInput> 
+code=197: E-circumflex:Ê
+AccentedInput> 
+code=198: I-circumflex:Î
+AccentedInput> 
+code=199: O-circumflex:Ô
+AccentedInput> 
+code=200: U-circumflex:Û
+AccentedInput> 
+code=201: a-ring:å
+AccentedInput> 
+code=202: A-ring:Å
+AccentedInput> 
+code=203: o-slash:ø
+AccentedInput> 
+code=204: O-slash:Ø
+AccentedInput> 
+code=205: a-tilde:ã
+AccentedInput> 
+code=206: n-tilde:ñ
+AccentedInput> 
+code=207: o-tilde:õ
+AccentedInput> 
+code=208: A-tilde:Ã
+AccentedInput> 
+code=209: N-tilde:Ñ
+AccentedInput> 
+code=210: O-tilde:Õ
+AccentedInput> 
+code=211: ae-ligature:æ
+AccentedInput> 
+code=212: AE-ligature:Æ
+AccentedInput> 
+code=213: c-cedilla:ç
+AccentedInput> 
+code=214: C-cedilla:Ç
+AccentedInput> 
+code=215: thorn:þ
+AccentedInput> 
+code=216: eth:ð
+AccentedInput> 
+code=217: Thorn:Þ
+AccentedInput> 
+code=218: Eth:Ð
+AccentedInput> 
+code=219: pound-symbol:£
+AccentedInput> 
+code=220: oe-ligature:œ
+AccentedInput> 
+code=221: OE-ligature:Œ
+AccentedInput> 
+code=222: inverse-!:¡
+AccentedInput> 
+code=223: inverse-?:¿
+AccentedInput> 
+code=63: ASCII character '?'
+AccentedInput> 
+
+Test finished.
+
+> 
+This tests the interpreter's ability to do single and multiple "undo" commands.
+
+Your interpreter claims (by its header bit) that it DOES support undo.
+
+Simulating first move...
+Save succeeded.
+
+Simulating second move...
+Save succeeded.
+
+Hit "." to abort this test, or any other key to try "undo".
+SingleUndo> 
+
+First undo...
+Undo succeeded (undid second move).
+
+Hit "." to abort this test, or any other key to try a second "undo". (In many interpreters, executing the second "undo" will return to exactly the same point as the first one. If this occurs, and you see this message a second time (or more), your interpreter only supports single-move undo.)
+MultipleUndo> 
+
+Second undo...
+Undo succeeded (undid second move).
+
+Hit "." to abort this test, or any other key to try a second "undo". (In many interpreters, executing the second "undo" will return to exactly the same point as the first one. If this occurs, and you see this message a second time (or more), your interpreter only supports single-move undo.)
+MultipleUndo> 
+
+Your interpreter claims to support "undo", and it does. This aspect of your interpreter appears to behave according to spec.
+
+> 
+This tests if you can read text which is displayed immediately before the program quits. (It is not clear whether this is covered by the Z-Spec. However, some games -- including some original Infocom games -- display important closing text and then immediately quit.)
+
+Hit "." to return to the main menu, or any other key to print a line of text and then quit. If the line of text does not appear, or appears and vanishes too quickly to read, your interpreter will have trouble with those games.
+
+ClosingText> 
+
+This is a final line of text. Goodbye.

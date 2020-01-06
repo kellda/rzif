@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `doc` mod in crate `rzif`."><meta name="keywords" content="rust, rustlang, rust-lang, doc"><title>rzif::doc - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../rzif/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a><p class='location'>Module doc</p><div class="sidebar-elems"><p class='location'><a href='../index.html'>rzif</a></p><script>window.sidebarCurrent = {name: 'doc', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../src/rzif/doc/mod.rs.html#1-185' title='goto source code'>[src]</a></span><span class='in-band'>Module <a href='../index.html'>rzif</a>::<wbr><a class="mod" href=''>doc</a></span></h1><div class='docblock'><p>Various documentation</p>
+<p>Hexadecimal numbers are written with an initial dollar, as in $ff, while binary numbers are written with a double-dollar as in $$11011.</p>
+<h1 id="fonts" class="section-header"><a href="#fonts">Fonts</a></h1>
+<p>The fonts are:</p>
+<ol>
+<li>the normal font</li>
+<li>don't exists: must be refused</li>
+<li>a <a href="http://inform-fiction.org/zmachine/standards/z1point1/sect16.html">character graphics font</a></li>
+<li>a Courier-style font with fixed pitch</li>
+</ol>
+<h1 id="colors" class="section-header"><a href="#colors">Colors</a></h1><h2 id="true-colors" class="section-header"><a href="#true-colors">True colors</a></h2>
+<p>True colors are 16 bits colors in the fromat <code>$$0bbbbbgggggrrrrr</code> (a 0 bit followed by 5 bits for blue, 5 for green and 5 for red).
+There are two specials cases:</p>
+<ul>
+<li>-1: default color</li>
+<li>-2: current color</li>
+</ul>
+<h2 id="color-codes" class="section-header"><a href="#color-codes">Color codes</a></h2>
+<p>Color codes to use with <a href="../struct.Config.html#structfield.default_color"><code>Config.default_color</code></a>.</p>
+<pre><code class="language-text">0 = current (true -2)
+1 = default (true -1)
+2 = black   (true $0000, $$0000000000000000)
+3 = red     (true $001D, $$0000000000011101)
+4 = green   (true $0340, $$0000001101000000)
+5 = yellow  (true $03BD, $$0000001110111101)
+6 = blue    (true $59A0, $$0101100110100000)
+7 = magenta (true $7C1F, $$0111110000011111)
+8 = cyan    (true $77A0, $$0111011110100000)
+9 = white   (true $7FFF, $$0111111111111111)
+</code></pre>
+<h1 id="starting-a-game" class="section-header"><a href="#starting-a-game">Starting a game</a></h1><h2 id="in-versions-1-to-4" class="section-header"><a href="#in-versions-1-to-4">In Versions 1 to 4</a></h2>
+<p>The screen should be cleared and the text cursor placed at the bottom left (so that text scrolls upwards as the game gets under way).</p>
+<h2 id="in-version-5-and-later" class="section-header"><a href="#in-version-5-and-later">In Version 5 and later</a></h2>
+<p>The screen should be cleared and the text cursor placed at the top left.</p>
+<blockquote>
+<p>Note: the version is the first byte of the story file.</p>
+</blockquote>
+<h1 id="windows" class="section-header"><a href="#windows">Windows</a></h1>
+<p>The screen is divided into a lower and an upper window and at any given time one of these is selected. (Initially it is the lower window.) The game uses the set_window opcode to select one of the two. Each window has its own cursor position at which text is printed. Operations in the upper window do not move the cursor of the lower. Whenever the upper window is selected, its cursor position is reset to the top left. Selecting, or re-sizing, the upper window does not change the screen's appearance.</p>
+<p>An interpreter should use a fixed-pitch font when printing on the upper window.</p>
+<p>Printing onto the upper window overlays whatever text is already there.</p>
+<p>When text reaches the bottom right of the lower window, it should be scrolled upwards. (When the text style is Reverse Video the new blank line should not have reversed colours.) The upper window should never be scrolled: it is legal for a character to be printed on the bottom right position of the upper window (but the position of the cursor after this operation is undefined: the author suggests that it stay put).</p>
+<h2 id="cursor" class="section-header"><a href="#cursor">Cursor</a></h2>
+<p>In Version 1 to 4, the lower window's cursor is always on the bottom screen line. In Version 5 it can be at any line which is not underneath the upper window. If a split takes place which would cause the upper window to swallow the lower window's cursor position, the interpreter should move the lower window's cursor down to the line just below the upper window's new size.</p>
+<h2 id="spliting" class="section-header"><a href="#spliting">Spliting</a></h2>
+<p>The upper window has variable height (of n lines) and the same width as the screen. This should be displayed on the n lines of the screen (in Vesion 3, below the top one which continues to hold the status line). Initially the upper window has height 0. When the lower window is selected, the game can split off an upper window of any chosen size by using the split_window opcode.</p>
+<h1 id="styles" class="section-header"><a href="#styles">Styles</a></h1>
+<p>Sets the text style to: Roman (if 0), Reverse Video (if 1), Bold (if 2), Italic (4), Fixed Pitch (8). In some interpreters (though this is not required) a combination of styles is possible (such as reverse video and bold). In these, changing to Roman should turn off all the other styles currently set.</p>
+<p>It is legal to request style combinations in a single set_text_style opcode by adding the values (which are powers of two) together. If the parameter is non-zero, then all the styles given are activated. If the parameter is zero, then all styles are deactivated. If the interpreter is unable to provide the requested style combination, it must give precedence first to the styles requested in the most recent call to set_text_style, and within that to the highest bit, making the priority Fixed, Italic, Bold, Reverse.</p>
+<p>An interpreter need not provide Bold or Italic (even for font 1) and is free to interpret them broadly. (For example, rendering bold-face by changing the colour, or rendering italic with underlining.)</p>
+<h1 id="buffering" class="section-header"><a href="#buffering">Buffering</a></h1>
+<p>Text printing may be &quot;buffered&quot; in that new-lines are automatically printed to ensure that no word (of length less than the width of the screen) spreads across two lines (if the interpreter is able to control this). (This process is sometimes called &quot;word-wrapping&quot;.)</p>
+<p>Buffering is on by default (at the start of a game) and a game can switch it on or off using the buffer_mode opcode. Text buffering is never active in the upper window.</p>
+<p>If set to 1, text output on the lower window in stream 1 is buffered up so that it can be word-wrapped properly. If set to 0, it isn't.</p>
+<h1 id="erasing" class="section-header"><a href="#erasing">Erasing</a></h1><h2 id="erasing-a-window" class="section-header"><a href="#erasing-a-window">Erasing a window</a></h2>
+<p>Using the opcode erase_window, the specified window can be cleared to background colour. (Even if the text style is Reverse Video the new blank space should not have reversed colours.)</p>
+<p>In Versions 5 and later, the cursor for the window being erased should be moved to the top left. In Version 4, the lower window's cursor moves to its bottom left, while the upper window's cursor moves to top left.</p>
+<p>Erasing window -1 clears the whole screen to the background colour of the lower screen, collapses the upper window to height 0, moves the cursor of the lower screen to bottom left (in Version 4) or top left (in Versions 5 and later) and selects the lower screen. The same operation should happen at the start of a game.</p>
+<h2 id="erasing-a-line" class="section-header"><a href="#erasing-a-line">Erasing a line</a></h2>
+<p>Using erase_line in the upper window should erase the current line from the cursor position to the right-hand edge, clearing it to background colour. (Even if the text style is Reverse Video the new blank space should not have reversed colours.)</p>
+<h1 id="bleeps" class="section-header"><a href="#bleeps">Bleeps</a></h1>
+<p>This interpreter support only one sound effect: a beep or bell sound, which we shall call a &quot;bleep&quot;.
+Bleep number 1 is a high-pitched bleep, number 2 a low-pitched one</p>
+<h1 id="files" class="section-header"><a href="#files">Files</a></h1><h2 id="transcript" class="section-header"><a href="#transcript">Transcript</a></h2>
+<p>The transcript contains the game output and the player inputs. If an interpreter decides where to send the transcript by asking the player for a filename, this question should only be asked once per game session.</p>
+<h2 id="command-file" class="section-header"><a href="#command-file">Command file</a></h2>
+<p>The command file contains all the player inputs.</p>
+<h2 id="save" class="section-header"><a href="#save">Save</a></h2>
+<p>A save file contains the state of the game. It is encoded in <a href="http://inform-fiction.org/zmachine/standards/quetzal/index.html">Quetzal</a> format in this interpreter.</p>
+<h1 id="text" class="section-header"><a href="#text">Text</a></h1>
+<p><strong>TODO: arrows, fn, numeric</strong></p>
+<p>The interpreter is required to be able to print representations of every defined Unicode character under $0100 (i.e. of every defined ISO 8859-1 Latin1 character). If no suitable letter forms are available, textual equivalents may be used.</p>
+<p>An interpreter is not required to have suitable letter-forms for printing Unicode characters $0100 to $FFFF. (It may, if it chooses, allow the user to configure certain fonts for certain Unicode ranges; but this is not required.) If a Unicode character must be printed which an interpreter has no letter-form for, a question mark should be printed instead.</p>
+<h2 id="unicode-characters" class="section-header"><a href="#unicode-characters">Unicode characters</a></h2><table><thead><tr><th>Unicode code (hex)</th><th>Name</th><th>Character</th><th>Textual Equivalent</th></tr></thead><tbody>
+<tr><td>0e4</td><td>a-diaeresis</td><td>ä</td><td>ae</td></tr>
+<tr><td>0f6</td><td>o-diaeresis</td><td>ö</td><td>oe</td></tr>
+<tr><td>0fc</td><td>u-diaeresis</td><td>ü</td><td>ue</td></tr>
+<tr><td>0c4</td><td>A-diaeresis</td><td>Ä</td><td>Ae</td></tr>
+<tr><td>0d6</td><td>O-diaeresis</td><td>Ö</td><td>Oe</td></tr>
+<tr><td>0dc</td><td>U-diaeresis</td><td>Ü</td><td>Ue</td></tr>
+<tr><td>0df</td><td>sz-ligature</td><td>ß</td><td>ss</td></tr>
+<tr><td>0bb</td><td>quotation</td><td>»</td><td>&gt;&gt; or &quot;</td></tr>
+<tr><td>0ab</td><td>marks</td><td>«</td><td>&lt;&lt; or &quot;</td></tr>
+<tr><td>0eb</td><td>e-diaeresis</td><td>ë</td><td>e</td></tr>
+<tr><td>0ef</td><td>i-diaeresis</td><td>ï</td><td>i</td></tr>
+<tr><td>0ff</td><td>y-diaeresis</td><td>ÿ</td><td>y</td></tr>
+<tr><td>0cb</td><td>E-diaeresis</td><td>Ë</td><td>E</td></tr>
+<tr><td>0cf</td><td>I-diaeresis</td><td>Ï</td><td>I</td></tr>
+<tr><td>0e1</td><td>a-acute</td><td>á</td><td>a</td></tr>
+<tr><td>0e9</td><td>e-acute</td><td>é</td><td>e</td></tr>
+<tr><td>0ed</td><td>i-acute</td><td>í</td><td>i</td></tr>
+<tr><td>0f3</td><td>o-acute</td><td>ó</td><td>o</td></tr>
+<tr><td>0fa</td><td>u-acute</td><td>ú</td><td>u</td></tr>
+<tr><td>0fd</td><td>y-acute</td><td>ý</td><td>y</td></tr>
+<tr><td>0c1</td><td>A-acute</td><td>Á</td><td>A</td></tr>
+<tr><td>0c9</td><td>E-acute</td><td>É</td><td>E</td></tr>
+<tr><td>0cd</td><td>I-acute</td><td>Í</td><td>I</td></tr>
+<tr><td>0d3</td><td>O-acute</td><td>Ó</td><td>O</td></tr>
+<tr><td>0da</td><td>U-acute</td><td>Ú</td><td>U</td></tr>
+<tr><td>0dd</td><td>Y-acute</td><td>Ý</td><td>Y</td></tr>
+<tr><td>0e0</td><td>a-grave</td><td>à</td><td>a</td></tr>
+<tr><td>0e8</td><td>e-grave</td><td>è</td><td>e</td></tr>
+<tr><td>0ec</td><td>i-grave</td><td>ì</td><td>i</td></tr>
+<tr><td>0f2</td><td>o-grave</td><td>ò</td><td>o</td></tr>
+<tr><td>0f9</td><td>u-grave</td><td>ù</td><td>u</td></tr>
+<tr><td>0c0</td><td>A-grave</td><td>À</td><td>A</td></tr>
+<tr><td>0c8</td><td>E-grave</td><td>È</td><td>E</td></tr>
+<tr><td>0cc</td><td>I-grave</td><td>Ì</td><td>I</td></tr>
+<tr><td>0d2</td><td>O-grave</td><td>Ò</td><td>O</td></tr>
+<tr><td>0d9</td><td>U-grave</td><td>Ù</td><td>U</td></tr>
+<tr><td>0e2</td><td>a-circumflex</td><td>â</td><td>a</td></tr>
+<tr><td>0ea</td><td>e-circumflex</td><td>ê</td><td>e</td></tr>
+<tr><td>0ee</td><td>i-circumflex</td><td>î</td><td>i</td></tr>
+<tr><td>0f4</td><td>o-circumflex</td><td>ô</td><td>o</td></tr>
+<tr><td>0fb</td><td>u-circumflex</td><td>û</td><td>u</td></tr>
+<tr><td>0c2</td><td>A-circumflex</td><td>Â</td><td>A</td></tr>
+<tr><td>0ca</td><td>E-circumflex</td><td>Ê</td><td>E</td></tr>
+<tr><td>0ce</td><td>I-circumflex</td><td>Î</td><td>I</td></tr>
+<tr><td>0d4</td><td>O-circumflex</td><td>Ô</td><td>O</td></tr>
+<tr><td>0db</td><td>U-circumflex</td><td>Û</td><td>U</td></tr>
+<tr><td>0e5</td><td>a-ring</td><td>å</td><td>a</td></tr>
+<tr><td>0c5</td><td>A-ring</td><td>Å</td><td>A</td></tr>
+<tr><td>0f8</td><td>o-slash</td><td>ø</td><td>o</td></tr>
+<tr><td>0d8</td><td>O-slash</td><td>Ø</td><td>O</td></tr>
+<tr><td>0e3</td><td>a-tilde</td><td>ã</td><td>a</td></tr>
+<tr><td>0f1</td><td>n-tilde</td><td>ñ</td><td>n</td></tr>
+<tr><td>0f5</td><td>o-tilde</td><td>õ</td><td>o</td></tr>
+<tr><td>0c3</td><td>A-tilde</td><td>Ã</td><td>A</td></tr>
+<tr><td>0d1</td><td>N-tilde</td><td>Ñ</td><td>N</td></tr>
+<tr><td>0d5</td><td>O-tilde</td><td>Õ</td><td>O</td></tr>
+<tr><td>0e6</td><td>ae-ligature</td><td>æ</td><td>ae</td></tr>
+<tr><td>0c6</td><td>AE-ligature</td><td>Æ</td><td>AE</td></tr>
+<tr><td>0e7</td><td>c-cedilla</td><td>ç</td><td>c</td></tr>
+<tr><td>0c7</td><td>C-cedilla</td><td>Ç</td><td>C</td></tr>
+<tr><td>0fe</td><td>Icelandic thorn</td><td>þ</td><td>th</td></tr>
+<tr><td>0f0</td><td>Icelandic eth</td><td>ð</td><td>th</td></tr>
+<tr><td>0de</td><td>Icelandic Thorn</td><td>Þ</td><td>Th</td></tr>
+<tr><td>0d0</td><td>Icelandic Eth</td><td>Ð</td><td>Th</td></tr>
+<tr><td>0a3</td><td>pound symbol</td><td>£</td><td>L</td></tr>
+<tr><td>153</td><td>oe-ligature</td><td>œ</td><td>oe</td></tr>
+<tr><td>152</td><td>OE-ligature</td><td>Œ</td><td>OE</td></tr>
+<tr><td>0a1</td><td>inverted !</td><td>¡</td><td>!</td></tr>
+<tr><td>0bf</td><td>inverted ?</td><td>¿</td><td>?</td></tr>
+</tbody></table>
+<h1 id="sources" class="section-header"><a href="#sources">Sources</a></h1>
+<p><a href="http://inform-fiction.org/zmachine/standards/z1point1/sect07.html">Output streams and file handling</a><br />
+<a href="http://inform-fiction.org/zmachine/standards/z1point1/sect08.html">The screen model</a><br />
+<a href="http://inform-fiction.org/zmachine/standards/z1point1/sect09.html">Sound effects</a><br />
+<a href="http://inform-fiction.org/zmachine/standards/z1point1/sect10.html">Input streams and devices</a><br />
+<a href="http://inform-fiction.org/zmachine/standards/z1point1/sect15.html">Dictionary of opcodes</a><br />
+<a href="http://inform-fiction.org/zmachine/standards/z1point1/sect03.html">How text and characters are encoded</a></p>
+</div></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "rzif";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>

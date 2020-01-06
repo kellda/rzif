@@ -1,0 +1,142 @@
+
+This is a collection of the six test programs which came attached to the Z-Spec 0.99 file (spec.tex.) No changes have been made, except for the idiot menu system glued to the front.
+
+1: Fonts; 2: Accents; 3: InputCodes, 4: Colours, 5: Header, 6: TimedInput, 0: Exit
+Font 1 !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~Font 2 unavailable...............................................................................................Font 3 unavailable...............................................................................................Font 4 !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+1: Fonts; 2: Accents; 3: InputCodes, 4: Colours, 5: Header, 6: TimedInput, 0: Exit
+Keyboard input code testing
+(Press keys to see how they respond, and press SPACE to finish.)
+
+33 character '!'
+34 character '"'
+35 character '#'
+36 character '$'
+37 character '%'
+38 character '&'
+39 character '''
+40 character '('
+41 character ')'
+42 character '*'
+43 character '+'
+44 character ','
+45 character '-'
+46 character '.'
+47 character '/'
+48 character '0'
+49 character '1'
+50 character '2'
+51 character '3'
+52 character '4'
+53 character '5'
+54 character '6'
+55 character '7'
+56 character '8'
+57 character '9'
+58 character ':'
+59 character ';'
+60 character '<'
+61 character '='
+62 character '>'
+64 character '@'
+65 character 'A'
+66 character 'B'
+67 character 'C'
+68 character 'D'
+69 character 'E'
+70 character 'F'
+71 character 'G'
+72 character 'H'
+73 character 'I'
+74 character 'J'
+75 character 'K'
+76 character 'L'
+77 character 'M'
+78 character 'N'
+79 character 'O'
+80 character 'P'
+81 character 'Q'
+82 character 'R'
+83 character 'S'
+84 character 'T'
+85 character 'U'
+86 character 'V'
+87 character 'W'
+88 character 'X'
+89 character 'Y'
+90 character 'Z'
+91 character '['
+92 character '\'
+93 character ']'
+94 character '^'
+95 character '_'
+96 character '`'
+97 character 'a'
+98 character 'b'
+99 character 'c'
+100 character 'd'
+101 character 'e'
+102 character 'f'
+103 character 'g'
+104 character 'h'
+105 character 'i'
+106 character 'j'
+107 character 'k'
+108 character 'l'
+109 character 'm'
+110 character 'n'
+111 character 'o'
+112 character 'p'
+113 character 'q'
+114 character 'r'
+115 character 's'
+116 character 't'
+117 character 'u'
+118 character 'v'
+119 character 'w'
+120 character 'x'
+121 character 'y'
+122 character 'z'
+123 character '{'
+124 character '|'
+125 character '}'
+126 character '~'
+32 
+1: Fonts; 2: Accents; 3: InputCodes, 4: Colours, 5: Header, 6: TimedInput, 0: Exit
+Interpreter declarations:
+
+(In Flags 1...)
+Colours available?  yes
+Boldface available?  yes
+Italic available?  yes
+Fixed-pitch font available?  yes
+Timed keyboard input available?  no
+
+(In Flags 2.  The following four questions have meaningful answers only if bits 3, 4, 5 and 7 of Flags 2 were set in advance: to do this, alter the game file by setting byte 16 to 184 and then run it again.)
+Pictures available?  no
+UNDO available?  no
+Mouse available?  no
+Sound effects available?  no
+
+Interpreter (machine) number 1 version 
+
+Screen height: 14 lines
+Screen width: 77 fixed-pitch font characters
+Screen height in units: 14
+Screen width in units: 77
+Font height in units: 1
+Font width (of a '0') in units: 1
+
+Default background colour: white
+Default foreground colour: black
+
+Font 1 available?  yes
+Font 2 available?  no
+Font 3 available?  no
+Font 4 available?  yes
+
+Standard specification claimed by the interpreter: 1.1
+
+
+(Press SPACE to clear.)
+
+1: Fonts; 2: Accents; 3: InputCodes, 4: Colours, 5: Header, 6: TimedInput, 0: Exit

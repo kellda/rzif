@@ -1,0 +1,373 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `src/doc/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../rzif/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<span id="2">  2</span>
+<span id="3">  3</span>
+<span id="4">  4</span>
+<span id="5">  5</span>
+<span id="6">  6</span>
+<span id="7">  7</span>
+<span id="8">  8</span>
+<span id="9">  9</span>
+<span id="10"> 10</span>
+<span id="11"> 11</span>
+<span id="12"> 12</span>
+<span id="13"> 13</span>
+<span id="14"> 14</span>
+<span id="15"> 15</span>
+<span id="16"> 16</span>
+<span id="17"> 17</span>
+<span id="18"> 18</span>
+<span id="19"> 19</span>
+<span id="20"> 20</span>
+<span id="21"> 21</span>
+<span id="22"> 22</span>
+<span id="23"> 23</span>
+<span id="24"> 24</span>
+<span id="25"> 25</span>
+<span id="26"> 26</span>
+<span id="27"> 27</span>
+<span id="28"> 28</span>
+<span id="29"> 29</span>
+<span id="30"> 30</span>
+<span id="31"> 31</span>
+<span id="32"> 32</span>
+<span id="33"> 33</span>
+<span id="34"> 34</span>
+<span id="35"> 35</span>
+<span id="36"> 36</span>
+<span id="37"> 37</span>
+<span id="38"> 38</span>
+<span id="39"> 39</span>
+<span id="40"> 40</span>
+<span id="41"> 41</span>
+<span id="42"> 42</span>
+<span id="43"> 43</span>
+<span id="44"> 44</span>
+<span id="45"> 45</span>
+<span id="46"> 46</span>
+<span id="47"> 47</span>
+<span id="48"> 48</span>
+<span id="49"> 49</span>
+<span id="50"> 50</span>
+<span id="51"> 51</span>
+<span id="52"> 52</span>
+<span id="53"> 53</span>
+<span id="54"> 54</span>
+<span id="55"> 55</span>
+<span id="56"> 56</span>
+<span id="57"> 57</span>
+<span id="58"> 58</span>
+<span id="59"> 59</span>
+<span id="60"> 60</span>
+<span id="61"> 61</span>
+<span id="62"> 62</span>
+<span id="63"> 63</span>
+<span id="64"> 64</span>
+<span id="65"> 65</span>
+<span id="66"> 66</span>
+<span id="67"> 67</span>
+<span id="68"> 68</span>
+<span id="69"> 69</span>
+<span id="70"> 70</span>
+<span id="71"> 71</span>
+<span id="72"> 72</span>
+<span id="73"> 73</span>
+<span id="74"> 74</span>
+<span id="75"> 75</span>
+<span id="76"> 76</span>
+<span id="77"> 77</span>
+<span id="78"> 78</span>
+<span id="79"> 79</span>
+<span id="80"> 80</span>
+<span id="81"> 81</span>
+<span id="82"> 82</span>
+<span id="83"> 83</span>
+<span id="84"> 84</span>
+<span id="85"> 85</span>
+<span id="86"> 86</span>
+<span id="87"> 87</span>
+<span id="88"> 88</span>
+<span id="89"> 89</span>
+<span id="90"> 90</span>
+<span id="91"> 91</span>
+<span id="92"> 92</span>
+<span id="93"> 93</span>
+<span id="94"> 94</span>
+<span id="95"> 95</span>
+<span id="96"> 96</span>
+<span id="97"> 97</span>
+<span id="98"> 98</span>
+<span id="99"> 99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+</pre><div class="example-wrap"><pre class="rust ">
+<span class="doccomment">/*!
+Various documentation
+
+Hexadecimal numbers are written with an initial dollar, as in $ff, while binary numbers are written with a double-dollar as in $$11011.
+
+# Fonts
+The fonts are:
+1. the normal font
+2. don&#39;t exists: must be refused
+3. a [character graphics font](http://inform-fiction.org/zmachine/standards/z1point1/sect16.html)
+4. a Courier-style font with fixed pitch
+
+# Colors
+## True colors
+True colors are 16 bits colors in the fromat `$$0bbbbbgggggrrrrr` (a 0 bit followed by 5 bits for blue, 5 for green and 5 for red).
+There are two specials cases:
+* -1: default color
+* -2: current color
+
+## Color codes
+Color codes to use with [`Config.default_color`](../struct.Config.html#structfield.default_color).
+```text
+0 = current (true -2)
+1 = default (true -1)
+2 = black   (true $0000, $$0000000000000000)
+3 = red     (true $001D, $$0000000000011101)
+4 = green   (true $0340, $$0000001101000000)
+5 = yellow  (true $03BD, $$0000001110111101)
+6 = blue    (true $59A0, $$0101100110100000)
+7 = magenta (true $7C1F, $$0111110000011111)
+8 = cyan    (true $77A0, $$0111011110100000)
+9 = white   (true $7FFF, $$0111111111111111)
+```
+
+# Starting a game
+## In Versions 1 to 4
+The screen should be cleared and the text cursor placed at the bottom left (so that text scrolls upwards as the game gets under way).
+
+## In Version 5 and later
+The screen should be cleared and the text cursor placed at the top left.
+
+&gt; Note: the version is the first byte of the story file.
+
+# Windows
+The screen is divided into a lower and an upper window and at any given time one of these is selected. (Initially it is the lower window.) The game uses the set_window opcode to select one of the two. Each window has its own cursor position at which text is printed. Operations in the upper window do not move the cursor of the lower. Whenever the upper window is selected, its cursor position is reset to the top left. Selecting, or re-sizing, the upper window does not change the screen&#39;s appearance.
+
+An interpreter should use a fixed-pitch font when printing on the upper window.
+
+Printing onto the upper window overlays whatever text is already there.
+
+When text reaches the bottom right of the lower window, it should be scrolled upwards. (When the text style is Reverse Video the new blank line should not have reversed colours.) The upper window should never be scrolled: it is legal for a character to be printed on the bottom right position of the upper window (but the position of the cursor after this operation is undefined: the author suggests that it stay put).
+
+## Cursor
+In Version 1 to 4, the lower window&#39;s cursor is always on the bottom screen line. In Version 5 it can be at any line which is not underneath the upper window. If a split takes place which would cause the upper window to swallow the lower window&#39;s cursor position, the interpreter should move the lower window&#39;s cursor down to the line just below the upper window&#39;s new size.
+
+## Spliting
+The upper window has variable height (of n lines) and the same width as the screen. This should be displayed on the n lines of the screen (in Vesion 3, below the top one which continues to hold the status line). Initially the upper window has height 0. When the lower window is selected, the game can split off an upper window of any chosen size by using the split_window opcode.
+
+# Styles
+Sets the text style to: Roman (if 0), Reverse Video (if 1), Bold (if 2), Italic (4), Fixed Pitch (8). In some interpreters (though this is not required) a combination of styles is possible (such as reverse video and bold). In these, changing to Roman should turn off all the other styles currently set.
+
+It is legal to request style combinations in a single set_text_style opcode by adding the values (which are powers of two) together. If the parameter is non-zero, then all the styles given are activated. If the parameter is zero, then all styles are deactivated. If the interpreter is unable to provide the requested style combination, it must give precedence first to the styles requested in the most recent call to set_text_style, and within that to the highest bit, making the priority Fixed, Italic, Bold, Reverse.
+
+An interpreter need not provide Bold or Italic (even for font 1) and is free to interpret them broadly. (For example, rendering bold-face by changing the colour, or rendering italic with underlining.)
+
+# Buffering
+Text printing may be &quot;buffered&quot; in that new-lines are automatically printed to ensure that no word (of length less than the width of the screen) spreads across two lines (if the interpreter is able to control this). (This process is sometimes called &quot;word-wrapping&quot;.)
+
+Buffering is on by default (at the start of a game) and a game can switch it on or off using the buffer_mode opcode. Text buffering is never active in the upper window.
+
+If set to 1, text output on the lower window in stream 1 is buffered up so that it can be word-wrapped properly. If set to 0, it isn&#39;t.
+
+# Erasing
+## Erasing a window
+Using the opcode erase_window, the specified window can be cleared to background colour. (Even if the text style is Reverse Video the new blank space should not have reversed colours.)
+
+In Versions 5 and later, the cursor for the window being erased should be moved to the top left. In Version 4, the lower window&#39;s cursor moves to its bottom left, while the upper window&#39;s cursor moves to top left.
+
+Erasing window -1 clears the whole screen to the background colour of the lower screen, collapses the upper window to height 0, moves the cursor of the lower screen to bottom left (in Version 4) or top left (in Versions 5 and later) and selects the lower screen. The same operation should happen at the start of a game.
+
+## Erasing a line
+Using erase_line in the upper window should erase the current line from the cursor position to the right-hand edge, clearing it to background colour. (Even if the text style is Reverse Video the new blank space should not have reversed colours.)
+
+# Bleeps
+This interpreter support only one sound effect: a beep or bell sound, which we shall call a &quot;bleep&quot;.
+Bleep number 1 is a high-pitched bleep, number 2 a low-pitched one
+
+# Files
+## Transcript
+The transcript contains the game output and the player inputs. If an interpreter decides where to send the transcript by asking the player for a filename, this question should only be asked once per game session.
+
+## Command file
+The command file contains all the player inputs.
+
+## Save
+A save file contains the state of the game. It is encoded in [Quetzal](http://inform-fiction.org/zmachine/standards/quetzal/index.html) format in this interpreter.
+
+# Text
+**TODO: arrows, fn, numeric**
+
+The interpreter is required to be able to print representations of every defined Unicode character under $0100 (i.e. of every defined ISO 8859-1 Latin1 character). If no suitable letter forms are available, textual equivalents may be used.
+
+An interpreter is not required to have suitable letter-forms for printing Unicode characters $0100 to $FFFF. (It may, if it chooses, allow the user to configure certain fonts for certain Unicode ranges; but this is not required.) If a Unicode character must be printed which an interpreter has no letter-form for, a question mark should be printed instead.
+
+## Unicode characters
+|Unicode code (hex)|Name|Character|Textual Equivalent|
+|---|-----------|-|--|
+|0e4|a-diaeresis|ä|ae|
+|0f6|o-diaeresis|ö|oe|
+|0fc|u-diaeresis|ü|ue|
+|0c4|A-diaeresis|Ä|Ae|
+|0d6|O-diaeresis|Ö|Oe|
+|0dc|U-diaeresis|Ü|Ue|
+|0df|sz-ligature|ß|ss|
+|0bb|quotation|»|&gt;&gt; or &quot;|
+|0ab|marks|«|&lt;&lt; or &quot;|
+|0eb|e-diaeresis|ë|e|
+|0ef|i-diaeresis|ï|i|
+|0ff|y-diaeresis|ÿ|y|
+|0cb|E-diaeresis|Ë|E|
+|0cf|I-diaeresis|Ï|I|
+|0e1|a-acute|á|a|
+|0e9|e-acute|é|e|
+|0ed|i-acute|í|i|
+|0f3|o-acute|ó|o|
+|0fa|u-acute|ú|u|
+|0fd|y-acute|ý|y|
+|0c1|A-acute|Á|A|
+|0c9|E-acute|É|E|
+|0cd|I-acute|Í|I|
+|0d3|O-acute|Ó|O|
+|0da|U-acute|Ú|U|
+|0dd|Y-acute|Ý|Y|
+|0e0|a-grave|à|a|
+|0e8|e-grave|è|e|
+|0ec|i-grave|ì|i|
+|0f2|o-grave|ò|o|
+|0f9|u-grave|ù|u|
+|0c0|A-grave|À|A|
+|0c8|E-grave|È|E|
+|0cc|I-grave|Ì|I|
+|0d2|O-grave|Ò|O|
+|0d9|U-grave|Ù|U|
+|0e2|a-circumflex|â|a|
+|0ea|e-circumflex|ê|e|
+|0ee|i-circumflex|î|i|
+|0f4|o-circumflex|ô|o|
+|0fb|u-circumflex|û|u|
+|0c2|A-circumflex|Â|A|
+|0ca|E-circumflex|Ê|E|
+|0ce|I-circumflex|Î|I|
+|0d4|O-circumflex|Ô|O|
+|0db|U-circumflex|Û|U|
+|0e5|a-ring|å|a|
+|0c5|A-ring|Å|A|
+|0f8|o-slash|ø|o|
+|0d8|O-slash|Ø|O|
+|0e3|a-tilde|ã|a|
+|0f1|n-tilde|ñ|n|
+|0f5|o-tilde|õ|o|
+|0c3|A-tilde|Ã|A|
+|0d1|N-tilde|Ñ|N|
+|0d5|O-tilde|Õ|O|
+|0e6|ae-ligature|æ|ae|
+|0c6|AE-ligature|Æ|AE|
+|0e7|c-cedilla|ç|c|
+|0c7|C-cedilla|Ç|C|
+|0fe|Icelandic thorn|þ|th|
+|0f0|Icelandic eth|ð|th|
+|0de|Icelandic Thorn|Þ|Th|
+|0d0|Icelandic Eth|Ð|Th|
+|0a3|pound symbol|£|L|
+|153|oe-ligature|œ|oe|
+|152|OE-ligature|Œ|OE|
+|0a1|inverted !|¡|!|
+|0bf|inverted ?|¿|?|
+
+# Sources
+[Output streams and file handling](http://inform-fiction.org/zmachine/standards/z1point1/sect07.html)\
+[The screen model](http://inform-fiction.org/zmachine/standards/z1point1/sect08.html)\
+[Sound effects](http://inform-fiction.org/zmachine/standards/z1point1/sect09.html)\
+[Input streams and devices](http://inform-fiction.org/zmachine/standards/z1point1/sect10.html)\
+[Dictionary of opcodes](http://inform-fiction.org/zmachine/standards/z1point1/sect15.html)\
+[How text and characters are encoded](http://inform-fiction.org/zmachine/standards/z1point1/sect03.html)
+*/</span>
+</pre></div>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../";window.currentCrate = "rzif";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>
