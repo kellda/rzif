@@ -63,8 +63,8 @@ pub fn display(error: Error) {
             "the property {} of the object {} don't exists",
             data.1, data.0
         ),
-        BadInputStream => invalid("output stream", data.0),
-        BadOutputStream => invalid("input stream", data.0),
+        BadInputStream => invalid("intput stream", data.0),
+        BadOutputStream => invalid("output stream", data.0),
         NoOutputS3 => eprintln!("can't disable output stream 3 while it isn't enabled"),
         OutputS3Overflow => eprintln!("can't enable output stream 3 more than 16 times"),
         BadColor => invalid("color", data.0),

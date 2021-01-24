@@ -18,7 +18,7 @@ There are two specials cases:
 * -2: current color
 
 ## Color codes
-Color codes to use with [`Config.default_color`](../struct.Config.html#structfield.default_color).
+Color codes to use with [`Config.default_color`](crate::Config#structfield.default_color).
 ```text
 0 = current (true -2)
 1 = default (true -1)

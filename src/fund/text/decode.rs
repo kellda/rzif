@@ -222,8 +222,5 @@ fn test_unicode() {
     let mut mem = mem::new(data).unwrap();
     let header = header::init_test(&mut mem);
     let text = init(&mem, &header).unwrap();
-    assert_eq!(
-        text.decode(&mem, 0x4d).unwrap(),
-        ("↯↻".to_string(), 0x53)
-    );
+    assert_eq!(text.decode(&mem, 0x4d).unwrap(), ("↯↻".to_string(), 0x53));
 }

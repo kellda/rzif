@@ -500,7 +500,7 @@ pub fn exec<I: Interface>(
                 state.pc = end;
                 screen.buffer(interface, *get(operands, 0)?);
             }
-            0x13 if v >= 5 => {
+            0x13 if v >= 3 => {
                 state.pc = end;
                 out.select(mem, *get(operands, 0)?, operands.get(1))?;
             }
@@ -551,7 +551,7 @@ pub fn exec<I: Interface>(
                         }
                     }
                 } else {
-                    for i in 0..operands[1] {
+                    for i in 0..operands[2] {
                         if mem.loadb(table + i * size)? == operands[0] {
                             instr.store(mem, state, table + i * size)?;
                             instr.branch(mem, state, true, true)?;
@@ -622,12 +622,14 @@ pub fn exec<I: Interface>(
             0x1e if v >= 5 => {
                 state.pc = end;
                 check(operands, 2)?;
-                let x = screen.get_cursor(interface).0;
                 let mut addr = operands[0];
                 let width = operands[1];
                 let height = *operands.get(2).unwrap_or(&1);
                 let skip = *operands.get(3).unwrap_or(&0);
-                for _ in 0..height {
+                for i in 0..height {
+                    if i != 0 {
+                        out.write(mem, text, interface, "\n", 0)?;
+                    }
                     for _ in 0..width {
                         let char = mem.loadb(addr)? as u8;
                         if let Some(char) = text.decode_char(mem, char)? {
@@ -635,8 +637,8 @@ pub fn exec<I: Interface>(
                         }
                         addr += 1;
                     }
-                    let y = screen.get_cursor(interface).1;
-                    screen.set_cursor(interface, x, y + 1);
+                    // let y = screen.get_cursor(interface).1;
+                    // screen.set_cursor(interface, x, y + 1);
                     addr += skip;
                 }
             }
@@ -742,7 +744,7 @@ pub fn exec<I: Interface>(
 fn get(operands: &[u16], i: usize) -> Result<&u16, Error> {
     operands
         .get(i)
-        .ok_or_else(|| err(Cause::MissingOperand, (i as u16, operands.len() as u16)))
+        .ok_or_else(|| err(Cause::MissingOperand, (i as u16 + 1, operands.len() as u16)))
 }
 
 fn check(operands: &[u16], min: usize) -> Result<(), Error> {

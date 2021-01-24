@@ -2,7 +2,7 @@ use super::*;
 
 impl Text {
     pub fn to_zscii(&self, mem: &mut Mem, mut addr: u16, text: &str) -> Result<u16, Error> {
-        for char in text.to_lowercase().chars() {
+        for char in text.chars() {
             let char = self.to_zscii_char(mem, char)?;
             mem.storeb(addr, char)?;
             addr += 1;

@@ -1,7 +1,8 @@
 [package]
 name = "rzif"
 version = "0.1.0"
-authors = ["root"]
+authors = ["kellda <59569234+kellda@users.noreply.github.com>"]
+license = "MIT"
 edition = "2018"
 
 [dependencies]

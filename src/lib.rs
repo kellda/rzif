@@ -48,7 +48,7 @@ pub use self::interface::*;
 /// The first argument is the contents of the storyfile to play.
 /// The second is the configuration of your inferface.
 /// The third is the callback functions this crate use to interact with your interface.
-/// Before calling this function, the screen must be prepared as described [here](doc/index.html#starting-a-game).\
+/// Before calling this function, the screen must be prepared as described [here](crate::doc#starting-a-game).\
 /// This function returns at the end of the game
 pub fn main<I: Interface>(file: Vec<u8>, config: Config, mut interface: I) {
     let error = machine::init(file, config, &mut interface).unwrap_err();

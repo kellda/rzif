@@ -12,8 +12,7 @@ fn main(file: Vec<u8>) {
             ("14".to_string(), '\n'),
         ]
         .into_iter(),
-        ".äöüÄÖÜß»«ëïÿËÏáéíóúýÁÉÍÓÚÝàèìòùÀÈÌÒÙâêîôûÂÊÎÔÛåÅøØãñõÃÑÕæÆçÇþðÞÐ£œŒ¡¿€.  . "
-            .chars(),
+        ".äöüÄÖÜß»«ëïÿËÏáéíóúýÁÉÍÓÚÝàèìòùÀÈÌÒÙâêîôûÂÊÎÔÛåÅøØãñõÃÑÕæÆçÇþðÞÐ£œŒ¡¿€.  . ".chars(),
     );
     assert_eq!(trans, String::new());
     common::check(&str, include_str!("../zcode/etude/etude.out"), true);

@@ -2,7 +2,7 @@ pub use crate::err::{Cause, Error, SaveError, Trace};
 
 /// The configuration of your interface
 ///
-/// This tell to the interpreter what your interface can do. It use it to set/clear header flags. See the [interface](trait.interface.html) trait and [the format of the header](http://inform-fiction.org/zmachine/standards/z1point1/sect11.html) for more information.
+/// This tell to the interpreter what your interface can do. It use it to set/clear header flags. See the [`Interface`] trait and [the format of the header](http://inform-fiction.org/zmachine/standards/z1point1/sect11.html) for more information.
 #[derive(Clone, Copy, Debug)]
 pub struct Config {
     /// Can your interface draw a status line ?
@@ -23,13 +23,13 @@ pub struct Config {
     pub timed: bool,
     /// What is the size of the screen (width, height) ?
     pub screen: (u16, u16),
-    /// What are the default [colors](doc/index.html#color-codes) (foreground, background) ?
+    /// What are the default [colors](crate::doc#color-codes) (foreground, background) ?
     pub default_color: (u8, u8),
-    /// What are the defaults [true colors](doc/color/index.html#true-colors) (foreground, background) ?
+    /// What are the defaults [true colors](crate::doc#true-colors) (foreground, background) ?
     pub true_color: (u16, u16),
     /// Do your interface support [character graphics font](http://inform-fiction.org/zmachine/standards/z1point1/sect16.html) ?
     pub picture: bool,
-    /// When to report errors (see `[ErrorLevel](enum.ErrorLevel.html)`)
+    /// When to report errors (see [`ErrorLevel`])
     pub error: ErrorLevel,
 }
 
@@ -70,32 +70,32 @@ pub static DEFAULT: Config = Config {
 pub trait Interface {
     /// Print a `text` to the screen, possibly in `fixed`-pitch font.
     fn write_screen(&mut self, text: &str, fixed: bool);
-    /// Write a `text` to the [transcript](doc/index.html#transcript).
+    /// Write a `text` to the [transcript](crate::doc#transcript).
     fn write_transcript(&mut self, text: &str);
-    /// Write a `text` to the [commands file](doc/index.html#command-file).
+    /// Write a `text` to the [commands file](crate::doc#command-file).
     fn write_command(&mut self, text: &str);
 
     /// Write the `text` in the status line (the top line of the screen).
     fn status(&mut self, text: &str);
-    /// Set the [`font`](doc/index.html#fonts). Returns true if the font is available, false otherwise.
+    /// Set the [`font`](crate::doc#fonts). Returns true if the font is available, false otherwise.
     fn window_font(&mut self, font: u16) -> bool;
-    /// Set the current `foreground` and `background` [true colors](doc/index.html#true-colors).
+    /// Set the current `foreground` and `background` [true colors](crate::doc#true-colors).
     fn window_color(&mut self, foreground: u16, background: u16);
-    /// Set the [`style`](doc/index.html#styles) to apply to the text.
+    /// Set the [`style`](crate::doc#styles) to apply to the text.
     fn window_style(&mut self, style: u16);
-    /// Select the current [`window`](doc/index.html#windows).
+    /// Select the current [`window`](crate::doc#windows).
     fn window_set(&mut self, window: u16);
-    /// Set the [`buffer`](doc/index.html#buffering) mode.
+    /// Set the [`buffer`](crate::doc#buffering) mode.
     fn window_buffer(&mut self, buffer: u16);
-    /// [Split](doc/index.html#spliting) the screen.
+    /// [Split](crate::doc#spliting) the screen.
     fn window_split(&mut self, lines: u16);
     /// Move the cursor to (`x`; `y`).
     fn window_cursor_set(&mut self, x: u16, y: u16);
-    /// Get the position of the [cursor](doc/index.html#cursor).
+    /// Get the position of the [cursor](crate::doc#cursor).
     fn window_cursor_get(&mut self) -> (u16, u16);
-    /// [Erase](doc/index.html#erasing-a-window) a `window`.
+    /// [Erase](crate::doc#erasing-a-window) a `window`.
     fn window_erase(&mut self, window: u16);
-    /// [Erase](doc/index.html#erasing-a-line) a line.
+    /// [Erase](crate::doc#erasing-a-line) a line.
     fn window_line(&mut self);
 
     /// Read a line treminated by a `terminating` character, with the text `preload` already given and of maximum length `maxlen`.
@@ -109,14 +109,14 @@ pub trait Interface {
     ) -> (String, char);
     /// Read a char.
     fn read_char<T: FnMut(&mut Self) -> bool>(&mut self, time: u16, callback: T) -> char;
-    /// Read a line from a [command file](doc/index.html#command-file).
+    /// Read a line from a [command file](crate::doc#command-file).
     fn read_file(&mut self) -> String;
 
-    /// Emit the given [`bleep`](doc/index.html#bleeps).
+    /// Emit the given [`bleep`](crate::doc#bleeps).
     fn bleep(&mut self, bleep: u16);
-    /// [Save](doc/index.html#save) some `data` into a file. Returns true in case of success, false otherwise.
+    /// [Save](crate::doc#save) some `data` into a file. Returns true in case of success, false otherwise.
     fn save(&mut self, data: &[u8]) -> bool;
-    /// [Restore](doc/index.html#save) some data from a file. In case of failure an empty `Vec` can be returned.
+    /// [Restore](crate::doc#save) some data from a file. In case of failure an empty `Vec` can be returned.
     fn restore(&mut self) -> Vec<u8>;
     /// Called if the resore fail
     fn restore_failed(&mut self, cause: SaveError);

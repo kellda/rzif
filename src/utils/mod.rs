@@ -114,12 +114,14 @@ impl Interface for IO {
     }
 
     fn window_split(&mut self, lines: u16) {
-        if self.current == 0 {
-            print!("\x1b7\x1b[{};{}r\x1b8", lines + 1, self.size.1);
+        if self.current != 0 {
+            return;
         }
         self.split = lines;
         if self.v == 3 {
-            self.window_erase(1);
+            print!("\x1b7\x1b[{};{}r\x1b[1J\x1b8", lines + 1, self.size.1);
+        } else {
+            print!("\x1b7\x1b[{};{}r\x1b8", lines + 1, self.size.1);
         }
     }
 
@@ -133,7 +135,7 @@ impl Interface for IO {
         print!("\x1b[6n");
         stdout().flush().unwrap();
         let mut buf = String::new();
-        stdin().read_to_string(&mut buf).unwrap();
+        while stdin().read_to_string(&mut buf).unwrap() == 0 {}
         let mut chars = buf.chars();
         assert_eq!(chars.next(), Some('\x1b'));
         assert_eq!(chars.next(), Some('['));
