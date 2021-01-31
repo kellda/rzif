@@ -96,8 +96,12 @@ impl Interface for IO {
         }
         self.current = window;
         match window {
-            0 => print!("\x1b[{};{}r\x1b8", self.split + 1, self.size.1),
-            1 => print!("\x1b7\x1b[H"),
+            0 => print!(
+                "\x1b[{};{}r\x1b8",
+                self.split + if self.v == 3 { 2 } else { 1 },
+                self.size.1
+            ),
+            1 => print!("\x1b7\x1b[{}H", if self.v == 3 { 2 } else { 1 }),
             _ => panic!(),
         }
     }
@@ -119,14 +123,14 @@ impl Interface for IO {
         }
         self.split = lines;
         if self.v == 3 {
-            print!("\x1b7\x1b[{};{}r\x1b[1J\x1b8", lines + 1, self.size.1);
+            print!("\x1b7\x1b[{};{}r\x1b[1J\x1b8", lines + 2, self.size.1);
         } else {
             print!("\x1b7\x1b[{};{}r\x1b8", lines + 1, self.size.1);
         }
     }
 
     fn window_cursor_set(&mut self, x: u16, y: u16) {
-        print!("\x1b[{};{}H", x, y);
+        print!("\x1b[{};{}H", y, x);
     }
 
     fn window_cursor_get(&mut self) -> (u16, u16) {
@@ -172,7 +176,12 @@ impl Interface for IO {
                     1 => 0,
                     _ => panic!(),
                 };
-                print!("\x1b[{}H\x1b[{}J\x1b[{}H", self.split + 1, window, pos);
+                print!(
+                    "\x1b[{}H\x1b[{}J\x1b[{}H",
+                    self.split + if self.v == 3 { 2 } else { 1 },
+                    window,
+                    pos
+                );
             }
             0xffff => {
                 print!(
