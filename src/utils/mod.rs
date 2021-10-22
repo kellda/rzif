@@ -130,7 +130,9 @@ impl Interface for IO {
     }
 
     fn window_cursor_set(&mut self, x: u16, y: u16) {
-        print!("\x1b[{};{}H", y, x);
+        if self.current == 1 {
+        	print!("\x1b[{};{}H", x, y);
+        }
     }
 
     fn window_cursor_get(&mut self) -> (u16, u16) {
